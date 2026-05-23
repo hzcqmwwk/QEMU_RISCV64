@@ -1,6 +1,10 @@
 # 获取当前脚本文件所在的目录
 SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
 
+if [ ! -d "$SHELL_FOLDER/output" ]; then  
+mkdir $SHELL_FOLDER/output
+fi
+
 # 编译qemu
 cd $SHELL_FOLDER/qemu-8.0.2
 if [ ! -d "$SHELL_FOLDER/output/qemu" ]; then  
