@@ -24,7 +24,10 @@
 static const MemMapEntry quard_star_memmap[] = {
     [QUARD_STAR_MROM]  = {        0x0,        0x8000 },
     [QUARD_STAR_SRAM]  = {     0x8000,        0x8000 },
+    [QUARD_STAR_CLINT] = { 0x02000000,       0x10000 },
+    [QUARD_STAR_PLIC]  = { 0x0c000000,     0x4000000 },
     [QUARD_STAR_UART0] = { 0x10000000,         0x100 },
+    [QUARD_STAR_FLASH] = { 0x20000000,     0x2000000 },
     [QUARD_STAR_DRAM]  = { 0x80000000,           0x0 },
 };
 
@@ -106,11 +109,99 @@ static void quard_star_memory_create(MachineState *machine)
                               0x0, 0x0);
 }
 
-// 初始化各种硬件
-static void quard_star_machine_init(MachineState *machine)
+// 创建 flash并映射
+static void quard_star_flash_create(MachineState *machine)
 {
-    quard_star_cpu_create(machine);
-    quard_star_memory_create(machine);
+    #define QUARD_STAR_FLASH_SECTOR_SIZE (256 * KiB)  // 0x40000
+    QuardStarState *s = RISCV_VIRT_MACHINE(machine);
+    MemoryRegion *system_memory = get_system_memory();
+    DeviceState *dev = qdev_new(TYPE_PFLASH_CFI01);
+
+    qdev_prop_set_uint64(dev, "sector-length", QUARD_STAR_FLASH_SECTOR_SIZE);
+    qdev_prop_set_uint8(dev, "width", 4);
+    qdev_prop_set_uint8(dev, "device-width", 2);
+    qdev_prop_set_bit(dev, "big-endian", false);
+    qdev_prop_set_uint16(dev, "id0", 0x89);
+    qdev_prop_set_uint16(dev, "id1", 0x18);
+    qdev_prop_set_uint16(dev, "id2", 0x00);
+    qdev_prop_set_uint16(dev, "id3", 0x00);
+    qdev_prop_set_string(dev, "name","quard-star.flash0");
+
+    object_property_add_child(OBJECT(s), "quard-star.flash0", OBJECT(dev));
+    object_property_add_alias(OBJECT(s), "pflash0", OBJECT(dev), "drive");
+
+    s->flash = PFLASH_CFI01(dev);
+    pflash_cfi01_legacy_drive(s->flash,drive_get(IF_PFLASH, 0, 0));
+
+    hwaddr flashsize = quard_star_memmap[QUARD_STAR_FLASH].size;
+    hwaddr flashbase = quard_star_memmap[QUARD_STAR_FLASH].base;
+
+    assert(QEMU_IS_ALIGNED(flashsize, QUARD_STAR_FLASH_SECTOR_SIZE));
+    assert(flashsize / QUARD_STAR_FLASH_SECTOR_SIZE <= UINT32_MAX);
+    qdev_prop_set_uint32(dev, "num-blocks", flashsize / QUARD_STAR_FLASH_SECTOR_SIZE);
+    sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
+
+    memory_region_add_subregion(system_memory, flashbase, sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 0));
+}
+
+// 创建 plic
+static void quard_star_plic_create(MachineState *machine)
+{
+    int socket_count = riscv_socket_count(machine);
+    QuardStarState *s = RISCV_VIRT_MACHINE(machine);
+    int i, hart_count, base_hartid;
+    for ( i = 0; i < socket_count; i++)
+    {
+        hart_count = riscv_socket_hart_count(machine, i);
+        base_hartid = riscv_socket_first_hartid(machine, i);
+        char *plic_hart_config;
+        /* Per-socket PLIC hart topology configuration string */
+        plic_hart_config = riscv_plic_hart_config_string(machine->smp.cpus);
+        
+        s->plic[i] = sifive_plic_create(
+            quard_star_memmap[QUARD_STAR_PLIC].base + i *quard_star_memmap[QUARD_STAR_PLIC].size,
+            plic_hart_config, hart_count , base_hartid,
+            QUARD_STAR_PLIC_NUM_SOURCES,
+            QUARD_STAR_PLIC_NUM_PRIORITIES,
+            QUARD_STAR_PLIC_PRIORITY_BASE,
+            QUARD_STAR_PLIC_PENDING_BASE,
+            QUARD_STAR_PLIC_ENABLE_BASE,
+            QUARD_STAR_PLIC_ENABLE_STRIDE,
+            QUARD_STAR_PLIC_CONTEXT_BASE,
+            QUARD_STAR_PLIC_CONTEXT_STRIDE,
+            quard_star_memmap[QUARD_STAR_PLIC].size);
+        g_free(plic_hart_config);
+    }
+}
+
+// 创建 clint
+static void quard_star_clint_create(MachineState *machine)
+{
+    int i, hart_count, base_hartid;
+    int socket_count = riscv_socket_count(machine);
+    // 每个CPU都需要创建 clint
+    for ( i = 0; i < socket_count; i++)
+    {
+        base_hartid = riscv_socket_first_hartid(machine, i);
+        hart_count = riscv_socket_hart_count(machine, i);
+
+        riscv_aclint_swi_create(quard_star_memmap[QUARD_STAR_CLINT].base + i *quard_star_memmap[QUARD_STAR_CLINT].size,base_hartid,hart_count, false);
+        riscv_aclint_mtimer_create(quard_star_memmap[QUARD_STAR_CLINT].base + i *quard_star_memmap[QUARD_STAR_CLINT].size + RISCV_ACLINT_SWI_SIZE,
+                                   RISCV_ACLINT_DEFAULT_MTIMER_SIZE, base_hartid, hart_count,
+                                   RISCV_ACLINT_DEFAULT_MTIMECMP, RISCV_ACLINT_DEFAULT_MTIME,
+                                   RISCV_ACLINT_DEFAULT_TIMEBASE_FREQ, true);
+    }
+}
+
+// 初始化各种硬件
+static void quard_star_machine_init(MachineState *machine) // 初始化各种硬件
+{
+    quard_star_cpu_create(machine);    // 创建 CPU
+    quard_star_memory_create(machine); // 创建 内存
+    quard_star_flash_create(machine);  // 创建 flash
+    quard_star_plic_create(machine);   // 创建plic
+    quard_star_clint_create(machine);  // 创建clint
+    // 创建其他硬件
 }
 
 static void quard_star_machine_instance_init(Object *obj)
