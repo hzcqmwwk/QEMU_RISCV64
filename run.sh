@@ -4,4 +4,7 @@ $SHELL_FOLDER/output/qemu/bin/qemu-system-riscv64 \
 -M quard-star \
 -m 1G \
 -smp 8 \
--monitor stdio     # 映射monitor
+-bios none \
+-drive if=pflash,bus=0,unit=0,format=raw,file=$SHELL_FOLDER/output/lowlevelboot/fw.bin \
+-monitor stdio \
+# -nographic --parallel none \

@@ -31,6 +31,7 @@
 #include "hw/display/ramfb.h"
 #include "hw/acpi/aml-build.h"
 #include "qapi/qapi-visit-common.h"
+#define QUARD_STAR_FLASH_SECTOR_SIZE (256 * KiB)  // 0x40000
 
 static const MemMapEntry quard_star_memmap[] = {
     [QUARD_STAR_MROM]  = {        0x0,        0x8000 },
@@ -115,9 +116,9 @@ static void quard_star_memory_create(MachineState *machine)
 
     memory_region_init_rom(mask_rom, NULL, "riscv_quard_star_board.mrom", quard_star_memmap[QUARD_STAR_MROM].size, &error_fatal);
     memory_region_add_subregion(system_memory, quard_star_memmap[QUARD_STAR_MROM].base, mask_rom);
-
+    // 从0号cpu开始加载复位程序，随后跳转到 flash位置开始执行
     riscv_setup_rom_reset_vec(machine, &s->soc[0],
-                              quard_star_memmap[QUARD_STAR_MROM].base,
+                              quard_star_memmap[QUARD_STAR_FLASH].base,
                               quard_star_memmap[QUARD_STAR_MROM].base,
                               quard_star_memmap[QUARD_STAR_MROM].size,
                               0x0, 0x0);
@@ -126,7 +127,6 @@ static void quard_star_memory_create(MachineState *machine)
 // 创建 flash并映射
 static void quard_star_flash_create(MachineState *machine)
 {
-    #define QUARD_STAR_FLASH_SECTOR_SIZE (256 * KiB)  // 0x40000
     QuardStarState *s = RISCV_VIRT_MACHINE(machine);
     MemoryRegion *system_memory = get_system_memory();
     DeviceState *dev = qdev_new(TYPE_PFLASH_CFI01);
