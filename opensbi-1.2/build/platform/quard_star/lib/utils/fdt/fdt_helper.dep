@@ -1,0 +1,24 @@
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/lib/utils/fdt/fdt_helper.o: \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/fdt/fdt_helper.c \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/autoconf.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/libfdt/libfdt.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/libfdt/libfdt_env.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_string.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_types.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/libfdt/fdt.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_asm.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_encoding.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_const.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_console.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_hartmask.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_bitmap.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_bitops.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_platform.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_ecall_interface.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_error.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_scratch.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_version.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi_utils/fdt/fdt_helper.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi_utils/irqchip/aplic.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi_utils/irqchip/imsic.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi_utils/irqchip/plic.h

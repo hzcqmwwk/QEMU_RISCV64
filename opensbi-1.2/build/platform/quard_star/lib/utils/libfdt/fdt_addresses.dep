@@ -1,0 +1,10 @@
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/lib/utils/libfdt/fdt_addresses.o: \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/libfdt/fdt_addresses.c \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/autoconf.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/libfdt/libfdt_env.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_string.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_types.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/libfdt/fdt.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/libfdt/libfdt.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/libfdt/libfdt_env.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/libfdt/libfdt_internal.h

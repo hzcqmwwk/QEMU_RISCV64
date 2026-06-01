@@ -1,0 +1,8 @@
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/lib/utils/gpio/gpio.o: \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/gpio/gpio.c \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/autoconf.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_error.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_ecall_interface.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi_utils/gpio/gpio.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_types.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_list.h

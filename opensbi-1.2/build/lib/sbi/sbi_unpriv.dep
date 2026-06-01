@@ -1,0 +1,12 @@
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/sbi_unpriv.o: \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/sbi/sbi_unpriv.c \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/autoconf.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_encoding.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_const.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_bitops.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_types.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_hart.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_scratch.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_asm.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_trap.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_unpriv.h

@@ -1,0 +1,7 @@
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/sbi_expected_trap.o: \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/sbi/sbi_expected_trap.S \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/autoconf.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_asm.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_encoding.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_const.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_trap.h

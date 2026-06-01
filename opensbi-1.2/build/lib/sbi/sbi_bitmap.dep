@@ -1,0 +1,6 @@
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/sbi_bitmap.o: \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/sbi/sbi_bitmap.c \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/autoconf.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_bitmap.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_bitops.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_types.h

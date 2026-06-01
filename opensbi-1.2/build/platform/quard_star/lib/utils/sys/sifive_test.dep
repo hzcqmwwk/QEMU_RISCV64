@@ -1,0 +1,10 @@
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/lib/utils/sys/sifive_test.o: \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/utils/sys/sifive_test.c \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/autoconf.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_io.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_barrier.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_types.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_ecall_interface.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_system.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_list.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi_utils/sys/sifive_test.h

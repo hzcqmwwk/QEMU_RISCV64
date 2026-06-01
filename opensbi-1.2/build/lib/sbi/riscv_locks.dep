@@ -1,0 +1,6 @@
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/riscv_locks.o: \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/sbi/riscv_locks.c \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/autoconf.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_barrier.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/riscv_locks.h \
+ /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/include/sbi/sbi_types.h
