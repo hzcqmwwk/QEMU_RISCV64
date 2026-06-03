@@ -1,2 +1,4 @@
 /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/sbi_ecall_exts.c: /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/sbi/sbi_ecall_exts.carray /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/.config
 /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/sbi_ecall_exts.o: /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/sbi_ecall_exts.c
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/sbi_ecall_exts.c: /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/lib/sbi/sbi_ecall_exts.carray /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/platform/quard_star/kconfig/.config
+/home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/sbi_ecall_exts.o: /home/kyrie/Desktop/QEMU_RISCV64/opensbi-1.2/build/lib/sbi/sbi_ecall_exts.c
