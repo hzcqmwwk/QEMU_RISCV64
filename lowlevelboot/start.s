@@ -53,6 +53,15 @@ _start:                            // 函数入口
     slli         a2, a2, 20        //a2 = 0xb0400000
     load_data    a0, a1, a2
 
+    //load os.bin          [0x20800000:0x20C00000] --> [0x80200000:0x80600000]
+    li           a0, 0x208
+    slli         a0, a0, 20        //a0 = 0x20800000
+    li           a1, 0x802
+    slli         a1, a1, 20        //a1 = 0x80200000
+    li           a2, 0x806
+    slli         a2, a2, 20        //a2 = 0x80600000
+    load_data    a0, a1, a2
+
     csrr         a0, mhartid       // csr是riscv专有的内核私有寄存器，独立编地在12位地址，mhartid寄存器定义了内核的hartid，这里读取到a0寄存器里
     li           t0, 0x0     
     beq          a0, t0, _no_wait  // 比较a0和t0,相等则跳转到_no_wait地址处，否则向下执行，即非core0就loop 1000后再启动，让core0作为OpenSBI的冷启动引导核心
