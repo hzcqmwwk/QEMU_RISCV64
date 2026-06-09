@@ -1,3 +1,4 @@
 output
 qemu-8.0.2/build
 qemu.log
+*.out
