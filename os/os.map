@@ -1,0 +1,110 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x0000000080200000 0x0000000008000000 axrl!w
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD entry.o
+LOAD kerneltrap.o
+LOAD sbi.o
+LOAD main.o
+LOAD printf.o
+LOAD batch.o
+LOAD trap.o
+
+.text           0x0000000080200000      0xa6a
+ *(.text .text.*)
+ .text          0x0000000080200000        0x0 entry.o
+ .text.entry    0x0000000080200000        0xc entry.o
+                0x0000000080200000                _start
+ *fill*         0x000000008020000c        0x4 
+ .text          0x0000000080200010       0xc6 kerneltrap.o
+                0x0000000080200010                __alltraps
+                0x0000000080200070                __restore
+ .text          0x00000000802000d6       0xb2 sbi.o
+                0x00000000802000d6                sbi_ecall
+                0x000000008020015a                sbi_console_putchar
+ .text          0x0000000080200188       0x22 main.o
+                0x0000000080200188                os_main
+ .text          0x00000000802001aa      0x572 printf.o
+                0x00000000802001aa                uart_puts
+                0x0000000080200696                printf
+                0x00000000802006ee                panic
+ .text          0x000000008020071c      0x224 batch.o
+                0x000000008020076a                syscall
+                0x00000000802007ae                testsys
+                0x00000000802007ee                app_init_context
+ .text          0x0000000080200940      0x12a trap.o
+                0x0000000080200974                trap_handler
+                0x0000000080200a4a                trap_init
+
+.rodata         0x0000000080200a70      0x197
+ *(.rodata .rodata.*)
+ .rodata        0x0000000080200a70       0x11 main.o
+ *fill*         0x0000000080200a81        0x7 
+ .rodata        0x0000000080200a88       0x8a printf.o
+ *fill*         0x0000000080200b12        0x6 
+ .rodata        0x0000000080200b18       0x92 batch.o
+ *fill*         0x0000000080200baa        0x6 
+ .rodata        0x0000000080200bb0       0x57 trap.o
+
+.data           0x0000000080200c07      0x3f9
+                0x0000000080201000                . = ALIGN (0x1000)
+ *fill*         0x0000000080200c07      0x3f9 
+ *(.sdata .sdata.*)
+ *(.data .data.*)
+ .data          0x0000000080201000        0x0 entry.o
+ .data          0x0000000080201000        0x0 kerneltrap.o
+ .data          0x0000000080201000        0x0 sbi.o
+ .data          0x0000000080201000        0x0 main.o
+ .data          0x0000000080201000        0x0 printf.o
+ .data          0x0000000080201000        0x0 batch.o
+ .data          0x0000000080201000        0x0 trap.o
+                [!provide]                        PROVIDE (_data_end = .)
+
+.bss            0x0000000080201000    0x144f8
+ *(.sbss .sbss.*)
+ *(.bss .bss.*)
+ .bss           0x0000000080201000        0x0 entry.o
+ .bss.stack     0x0000000080201000    0x10000 entry.o
+                0x0000000080201000                boot_stack_lower_bound
+                0x0000000080211000                boot_stack_top
+ .bss           0x0000000080211000        0x0 kerneltrap.o
+ .bss           0x0000000080211000        0x0 sbi.o
+ .bss           0x0000000080211000        0x0 main.o
+ .bss           0x0000000080211000      0x3e8 printf.o
+ .bss           0x00000000802113e8     0x4110 batch.o
+                0x00000000802113e8                KernelStack
+                0x00000000802133e8                UserStack
+                0x00000000802153e8                tasks
+ .bss           0x00000000802154f8        0x0 trap.o
+ *(COMMON)
+OUTPUT(os.elf elf64-littleriscv)
+
+.riscv.attributes
+                0x0000000000000000       0x57
+ .riscv.attributes
+                0x0000000000000000       0x51 entry.o
+ .riscv.attributes
+                0x0000000000000051       0x55 kerneltrap.o
+ .riscv.attributes
+                0x00000000000000a6       0x53 sbi.o
+ .riscv.attributes
+                0x00000000000000f9       0x53 main.o
+ .riscv.attributes
+                0x000000000000014c       0x53 printf.o
+ .riscv.attributes
+                0x000000000000019f       0x57 batch.o
+ .riscv.attributes
+                0x00000000000001f6       0x57 trap.o
+
+.comment        0x0000000000000000        0xf
+ .comment       0x0000000000000000        0xf sbi.o
+                                         0x10 (size before relaxing)
+ .comment       0x000000000000000f       0x10 main.o
+ .comment       0x000000000000000f       0x10 printf.o
+ .comment       0x000000000000000f       0x10 batch.o
+ .comment       0x000000000000000f       0x10 trap.o
