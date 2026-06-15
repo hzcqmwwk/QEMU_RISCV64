@@ -3,5 +3,8 @@
 void os_main()
 {
     printf("hello kyrie os!\n");
-    app_init_context();
+    while(1)
+    {
+        
+    }
 }

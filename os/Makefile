@@ -14,8 +14,10 @@ SRCS_C = \
 	sbi.c \
 	main.c \
 	printf.c \
-	batch.c \
+	app.c \
 	trap.c \
+	syscall.c \
+	string.c \
 
 # 将源文件替换为 .o 文件
 OBJS = $(SRCS_ASM:.S=.o)
