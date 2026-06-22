@@ -2,10 +2,7 @@
 #include "context.h"
 #include "riscv.h"
 
-extern void __alltraps(void);
-extern void __restore(pt_regs *next);
-
-pt_regs* trap_handler(pt_regs* cx)
+TrapContext* trap_handler(TrapContext* cx)
 {
     reg_t scause = r_scause() ;
     switch (scause)
@@ -14,7 +11,7 @@ pt_regs* trap_handler(pt_regs* cx)
             __SYSCALL(cx->a7,cx->a0,cx->a1,cx->a2);
             break;
         default:
-            printf("undfined scause:%d\n",scause); //panic("error!");     
+            printf("undefined scause:%d\n",scause); //panic("error!");     
             break;
     }
     cx->sepc += 8;

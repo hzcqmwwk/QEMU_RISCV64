@@ -9,6 +9,7 @@ OBJDUMP = ${CROSS_COMPILE}objdump
 SRCS_ASM = \
 	entry.S \
 	kerneltrap.S \
+	switch.S \
 
 SRCS_C = \
 	sbi.c \
@@ -18,6 +19,7 @@ SRCS_C = \
 	trap.c \
 	syscall.c \
 	string.c \
+	task.c \
 
 # 将源文件替换为 .o 文件
 OBJS = $(SRCS_ASM:.S=.o)

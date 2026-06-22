@@ -19,5 +19,59 @@ size_t syscall(size_t id, reg_t arg1, reg_t arg2, reg_t arg3)
 
 size_t sys_write(size_t fd, const char* buf, size_t len)
 {    
-    syscall(__NR_write,fd,buf, len);
+    syscall(__NR_write, fd, buf, len);
+}
+
+size_t sys_yield()
+{
+    syscall(__NR_sched_yield, 0, 0, 0);
+}
+
+void task_delay(volatile int count)
+{
+    count *= 50000;
+    while (count--);
+}
+
+void task1()
+{
+    const char *message = "task1 is running!\n";
+    int len = strlen(message);
+    while (1)
+    {
+        sys_write(1, message, len);
+        task_delay(10000);
+        sys_yield();
+    }
+}
+
+void task2()
+{
+    const char *message = "task2 is running!\n";
+    int len = strlen(message);
+    while (1)
+    {
+        sys_write(1, message, len);
+        task_delay(10000);
+        sys_yield();
+    }
+}
+
+void task3()
+{
+    const char *message = "task3 is running!\n";
+    int len = strlen(message);
+    while (1)
+    {
+        sys_write(1, message, len);
+        task_delay(10000);
+        sys_yield();
+    }
+}
+
+void task_init(void)
+{
+    task_create(task1);
+    task_create(task2);
+    task_create(task3);
 }

@@ -53,4 +53,12 @@ static inline reg_t r_stvec()
     return x;
 }
 
+/* ra寄存器 */
+static inline reg_t  r_ra()
+{
+    reg_t x;
+    asm volatile("mv %0, ra" : "=r" (x) );
+    return x;
+}
+
 #endif
