@@ -61,4 +61,28 @@ static inline reg_t  r_ra()
     return x;
 }
 
+// Supervisor Interrupt Enable
+#define SIE_SEIE (1L << 9) // external
+#define SIE_STIE (1L << 5) // timer
+#define SIE_SSIE (1L << 1) // software
+
+static inline reg_t r_sie()
+{
+    reg_t x;
+    asm volatile("csrr %0, sie" : "=r" (x) );
+    return x;
+}
+
+static inline void w_sie(reg_t x)
+{
+    asm volatile("csrw sie, %0" : : "r" (x));
+}
+
+static inline reg_t r_mtime()
+{
+    reg_t x;
+    asm volatile("rdtime %0" : "=r"(x));
+    return x;
+}
+
 #endif

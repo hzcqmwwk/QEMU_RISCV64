@@ -1,8 +1,8 @@
 #include "os.h"
 
-size_t syscall(size_t id, reg_t arg1, reg_t arg2, reg_t arg3)
+uint64_t syscall(size_t id, reg_t arg1, reg_t arg2, reg_t arg3)
 {
-    long ret;
+    uint64_t ret;
     asm volatile (
         "mv a7, %1\n\t"   // Move syscall id to a7 register
         "mv a0, %2\n\t"   // Move args[0] to a1 register
@@ -17,20 +17,19 @@ size_t syscall(size_t id, reg_t arg1, reg_t arg2, reg_t arg3)
     return ret;
 }
 
-size_t sys_write(size_t fd, const char* buf, size_t len)
+uint64_t sys_write(size_t fd, const char* buf, size_t len)
 {    
-    syscall(__NR_write, fd, buf, len);
+    return syscall(__NR_write, fd, buf, len);
 }
 
-size_t sys_yield()
+uint64_t sys_yield()
 {
-    syscall(__NR_sched_yield, 0, 0, 0);
+    return syscall(__NR_sched_yield, 0, 0, 0);
 }
 
-void task_delay(volatile int count)
+uint64_t sys_gettime()
 {
-    count *= 50000;
-    while (count--);
+    return syscall(__NR_gettimeofday, 0, 0, 0);
 }
 
 void task1()
@@ -40,8 +39,6 @@ void task1()
     while (1)
     {
         sys_write(1, message, len);
-        task_delay(10000);
-        sys_yield();
     }
 }
 
@@ -52,8 +49,6 @@ void task2()
     while (1)
     {
         sys_write(1, message, len);
-        task_delay(10000);
-        sys_yield();
     }
 }
 
@@ -64,8 +59,6 @@ void task3()
     while (1)
     {
         sys_write(1, message, len);
-        task_delay(10000);
-        sys_yield();
     }
 }
 

@@ -27,9 +27,13 @@ extern void __alltraps(void);
 extern void __restore(TrapContext *next);
 
 /*syscall*/
-void __SYSCALL(size_t syscall_id, reg_t arg1, reg_t arg2, reg_t arg3);
+uint64_t __SYSCALL(size_t syscall_id, reg_t arg1, reg_t arg2, reg_t arg3);
+void __sys_write(size_t fd, const char* data, size_t len);
+void __sys_yield();
+uint64_t __sys_gettime();
 #define __NR_write 64
 #define __NR_sched_yield 124
+#define __NR_gettimeofday 169
 
 /* switch.S */
 extern void __switch(TaskContext *current_task_cx_ptr,TaskContext* next_task_cx_ptr );
@@ -38,5 +42,11 @@ extern void __switch(TaskContext *current_task_cx_ptr,TaskContext* next_task_cx_
 extern void schedule();
 extern void task_create(void (*task_entry)(void));
 extern void run_first_task();
+
+/* timer.c */
+extern void sbi_set_timer(uint64_t stime_value);
+void timer_init();
+void set_next_trigger();
+extern uint64_t get_time_us();
 
 #endif
